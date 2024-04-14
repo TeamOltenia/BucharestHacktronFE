@@ -371,8 +371,66 @@ export default function Dashboard() {
       {/* {sales != null && sales.length != 0 ? ( */}
       <div>
         {/*-------------------prima componenta maree ATENTIEEEEEEEEEEEEEEEEEEEEEEE----------------------------*/}
+
+        <Card p="28px 0px 0px 0px">
+          <CardHeader mb="20px" ps="22px">
+            <Flex direction="column" alignSelf="flex-start">
+              <Text fontSize="lg" color="#fff" fontWeight="bold" mb="6px">
+                Amounts
+              </Text>
+              {/* <Text fontSize="md" fontWeight="medium" color="gray.400">
+                  <Text as="span" color="green.400" fontWeight="bold">
+                    (+5%) more
+                  </Text>{" "}
+                  in 2021
+                </Text> */}
+            </Flex>
+          </CardHeader>
+          <Flex>
+            {/* <StatNumber fontSize="lg" color="#fff">
+                      {metrics["Total Sales"].toFixed(2)}
+                    </StatNumber> */}
+
+            <ChartComponent />
+            {/* <StatHelpText
+                        alignSelf="flex-end"
+                        justifySelf="flex-end"
+                        m="0px"
+                        color="green.400"
+                        fontWeight="bold"
+                        ps="3px"
+                        fontSize="md"
+                      >
+                        +55%
+                      </StatHelpText> */}
+          </Flex>
+          {/* <Box w="100%" minH={{ sm: "300px" }}>
+            <LineChart
+              lineChartData={db2["data"]}
+              lineChartOptions={db2["options"]}
+            />
+          </Box> */}
+        </Card>
+        <br />
+        <Card p="28px 0px 0px 0px">
+          <CardHeader mb="20px" ps="22px">
+            <Flex direction="column" alignSelf="flex-start">
+              <Text fontSize="lg" color="#fff" fontWeight="bold" mb="6px">
+                Sales Overview
+              </Text>
+            </Flex>
+          </CardHeader>
+          <Box w="100%" minH={{ sm: "300px" }}>
+            <LineChart
+              lineChartData={db1["data"]}
+              lineChartOptions={db1["options"]}
+            />
+          </Box>
+        </Card>
+        <br />
         <SimpleGrid columns={{ sm: 1, md: 2, xl: 4 }} spacing="24px">
           {/* MiniStatistics Card */}
+
           <Card>
             <CardBody>
               <Flex
@@ -517,62 +575,6 @@ export default function Dashboard() {
             </CardBody>
           </Card>
         </SimpleGrid>
-        <br />
-        <Card p="28px 0px 0px 0px">
-          <CardHeader mb="20px" ps="22px">
-            <Flex direction="column" alignSelf="flex-start">
-              <Text fontSize="lg" color="#fff" fontWeight="bold" mb="6px">
-                Sales Overview
-              </Text>
-            </Flex>
-          </CardHeader>
-          <Box w="100%" minH={{ sm: "300px" }}>
-            <LineChart
-              lineChartData={db1["data"]}
-              lineChartOptions={db1["options"]}
-            />
-          </Box>
-        </Card>
-        <br />
-        <Card p="28px 0px 0px 0px">
-          <CardHeader mb="20px" ps="22px">
-            <Flex direction="column" alignSelf="flex-start">
-              <Text fontSize="lg" color="#fff" fontWeight="bold" mb="6px">
-                Anomalies
-              </Text>
-              {/* <Text fontSize="md" fontWeight="medium" color="gray.400">
-                  <Text as="span" color="green.400" fontWeight="bold">
-                    (+5%) more
-                  </Text>{" "}
-                  in 2021
-                </Text> */}
-            </Flex>
-          </CardHeader>
-          <Flex>
-            {/* <StatNumber fontSize="lg" color="#fff">
-                      {metrics["Total Sales"].toFixed(2)}
-                    </StatNumber> */}
-
-            <ChartComponent />
-            {/* <StatHelpText
-                        alignSelf="flex-end"
-                        justifySelf="flex-end"
-                        m="0px"
-                        color="green.400"
-                        fontWeight="bold"
-                        ps="3px"
-                        fontSize="md"
-                      >
-                        +55%
-                      </StatHelpText> */}
-          </Flex>
-          {/* <Box w="100%" minH={{ sm: "300px" }}>
-            <LineChart
-              lineChartData={db2["data"]}
-              lineChartOptions={db2["options"]}
-            />
-          </Box> */}
-        </Card>
         <br />
         <Card p="28px 0px 0px 0px">
           <CardHeader mb="20px" ps="22px">
