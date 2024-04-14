@@ -278,204 +278,27 @@ export default function Dashboard() {
           </Flex>
         </Card>
         <br />
-        <Card p="28px 0px 0px 0px">
-          <CardHeader mb="20px" ps="22px">
-            <Flex direction="column" alignSelf="flex-start">
-              <Text fontSize="lg" color="#fff" fontWeight="bold" mb="6px">
-                Scan QR Code
-              </Text>
-            </Flex>
-          </CardHeader>
-          <Flex justifyContent="center">
-            <QR merchant={merchant} />
-          </Flex>
-        </Card>
-        <br />
-        <Card p="28px 0px 0px 0px">
-          <CardHeader mb="20px" ps="22px">
-            <Flex direction="column" alignSelf="flex-start">
-              <Text fontSize="lg" color="#fff" fontWeight="bold" mb="6px">
-                Sales Overview
-              </Text>
-            </Flex>
-          </CardHeader>
-          <Box w="100%" minH={{ sm: "300px" }}>
-            <LineChart
-              lineChartData={db1["data"]}
-              lineChartOptions={db1["options"]}
-            />
-          </Box>
-        </Card>
-        <br />
         <SimpleGrid columns={{ sm: 1, md: 2, xl: 4 }} spacing="24px">
           {/* MiniStatistics Card */}
 
-          <Card>
-            <CardBody>
-              <Flex
-                flexDirection="row"
-                align="center"
-                justify="center"
-                w="100%"
-              >
-                <Stat me="auto">
-                  <StatLabel
-                    fontSize="sm"
-                    color="gray.400"
-                    fontWeight="bold"
-                    pb="2px"
-                  >
-                    Total Sales
-                  </StatLabel>
-                  <Flex>
-                    {/* <StatNumber fontSize="lg" color="#fff">
-                      {metrics["Total Sales"].toFixed(2)}
-                    </StatNumber> */}
+          <Card p="28px 0px 0px 0px">
+            <CardHeader mb="20px" ps="22px">
+              <Flex direction="column" alignSelf="flex-start">
+                <Text fontSize="lg" color="#fff" fontWeight="bold" mb="6px">
+                  Scan QR Code
+                </Text>
+              </Flex>
+            </CardHeader>
+            <Flex justifyContent="center">
+              <QR merchant={merchant} />
+            </Flex>
+            <br />
+          </Card>
+          {/* MiniStatistics Card */}
 
-                    <ChartComponent />
-                    {/* <StatHelpText
-                        alignSelf="flex-end"
-                        justifySelf="flex-end"
-                        m="0px"
-                        color="green.400"
-                        fontWeight="bold"
-                        ps="3px"
-                        fontSize="md"
-                      >
-                        +55%
-                      </StatHelpText> */}
-                  </Flex>
-                </Stat>
-                <IconBox as="box" h={"45px"} w={"45px"} bg="brand.200">
-                  <WalletIcon h={"24px"} w={"24px"} color="#fff" />
-                </IconBox>
-              </Flex>
-            </CardBody>
-          </Card>
           {/* MiniStatistics Card */}
-          <Card minH="83px">
-            <CardBody>
-              <Flex
-                flexDirection="row"
-                align="center"
-                justify="center"
-                w="100%"
-              >
-                <Stat me="auto">
-                  <StatLabel
-                    fontSize="sm"
-                    color="gray.400"
-                    fontWeight="bold"
-                    pb="2px"
-                  >
-                    Average Sales
-                  </StatLabel>
-                  <Flex>
-                    {/* <StatNumber fontSize="lg" color="#fff">
-                      {metrics["Average Sales"].toFixed(2)}
-                    </StatNumber> */}
-                    {/* <StatHelpText
-                        alignSelf="flex-end"
-                        justifySelf="flex-end"
-                        m="0px"
-                        color="green.400"
-                        fontWeight="bold"
-                        ps="3px"
-                        fontSize="md"
-                      >
-                        +5%
-                      </StatHelpText> */}
-                  </Flex>
-                </Stat>
-                <IconBox as="box" h={"45px"} w={"45px"} bg="brand.200">
-                  <GlobeIcon h={"24px"} w={"24px"} color="#fff" />
-                </IconBox>
-              </Flex>
-            </CardBody>
-          </Card>
-          {/* MiniStatistics Card */}
-          <Card>
-            <CardBody>
-              <Flex
-                flexDirection="row"
-                align="center"
-                justify="center"
-                w="100%"
-              >
-                <Stat>
-                  <StatLabel
-                    fontSize="sm"
-                    color="gray.400"
-                    fontWeight="bold"
-                    pb="2px"
-                  >
-                    Total Revenue
-                  </StatLabel>
-                  <Flex>
-                    {/* <StatNumber fontSize="lg" color="#fff">
-                      {metrics["Total Revenue"].toFixed(2)}
-                    </StatNumber> */}
-                  </Flex>
-                </Stat>
-                <Spacer />
-                <IconBox as="box" h={"45px"} w={"45px"} bg="brand.200">
-                  <DocumentIcon h={"24px"} w={"24px"} color="#fff" />
-                </IconBox>
-              </Flex>
-            </CardBody>
-          </Card>
-          <Card>
-            <CardBody>
-              <Flex
-                flexDirection="row"
-                align="center"
-                justify="center"
-                w="100%"
-              >
-                <Stat me="auto">
-                  <StatLabel
-                    fontSize="sm"
-                    color="gray.400"
-                    fontWeight="bold"
-                    pb="2px"
-                  >
-                    Average Revenue per Sale
-                  </StatLabel>
-                  <Flex>
-                    {/* <StatNumber fontSize="lg" color="#fff" fontWeight="bold">
-                      {metrics["Average Revenue per Sale"].toFixed(2)}
-                    </StatNumber> */}
-                  </Flex>
-                </Stat>
-                <IconBox as="box" h={"45px"} w={"45px"} bg="brand.200">
-                  <CartIcon h={"24px"} w={"24px"} color="#fff" />
-                </IconBox>
-              </Flex>
-            </CardBody>
-          </Card>
         </SimpleGrid>
         <br />
-        <Card p="28px 0px 0px 0px">
-          <CardHeader mb="20px" ps="22px">
-            <Flex direction="column" alignSelf="flex-start">
-              <Text fontSize="lg" color="#fff" fontWeight="bold" mb="6px">
-                Predictions
-              </Text>
-              {/* <Text fontSize="md" fontWeight="medium" color="gray.400">
-                  <Text as="span" color="green.400" fontWeight="bold">
-                    (+5%) more
-                  </Text>{" "}
-                  in 2021
-                </Text> */}
-            </Flex>
-          </CardHeader>
-          {/* <Box w="100%" minH={{ sm: "300px" }}>
-            <LineChart
-              lineChartData={db4["data"]}
-              lineChartOptions={db4["options"]}
-            />
-          </Box> */}
-        </Card>
       </div>
 
       {/* ) : sales == null ? ( */}
