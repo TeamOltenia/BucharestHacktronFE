@@ -35,16 +35,18 @@ const ChartComponent = () => {
     }
 
     console.log("Fetching data...");
-    const apiUrl = `http://127.0.0.1:8000/data/{id}?merchant=${merchantId}`;
-    const response = await fetch(apiUrl.replace("{id}", merchantId)); // Ensure the ID is included in the URL
+    const apiUrl = `http://127.0.0.1:8000/data/${merchantId}?merchant=${merchantId}`;
+    const response = await fetch(apiUrl);
     const rawData = await response.json();
 
     console.log("API Response:", rawData); // Check what the API response actually looks like
 
-    // Filter transactions based on startDate and endDate
+    // Filter transactions based on startDate and endDate if they are provided
     const filteredData = rawData.filter((txn) => {
       const txnDate = new Date(txn.unix_time * 1000);
-      return txnDate >= new Date(startDate) && txnDate <= new Date(endDate);
+      const startCondition = startDate ? txnDate >= new Date(startDate) : true;
+      const endCondition = endDate ? txnDate <= new Date(endDate) : true;
+      return startCondition && endCondition;
     });
 
     const amt = filteredData.map((txn) => txn.amt);
@@ -58,6 +60,8 @@ const ChartComponent = () => {
       fraudFlag ? "red" : "rgba(75, 192, 192, 0.5)"
     );
 
+    const pointRadii = is_fraud.map((fraudFlag) => (fraudFlag ? 7 : 3)); // Larger radius for fraud points
+
     const chartData = {
       labels: unix_time,
       datasets: [
@@ -67,6 +71,7 @@ const ChartComponent = () => {
           borderColor: "rgb(75, 192, 192)",
           backgroundColor: backgroundColors,
           pointBackgroundColor: backgroundColors,
+          pointRadius: pointRadii, // Apply custom point radii here
         },
       ],
     };
