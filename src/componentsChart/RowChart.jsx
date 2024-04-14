@@ -9,21 +9,21 @@ const ChartComponent = () => {
   const [endDate, setEndDate] = useState("");
 
   const inputStyle = {
-    backgroundColor: "rgba(255, 255, 255, 0.5)", // Semi-transparent input background
-    border: "none", // Remove default border
+    backgroundColor: "rgba(255, 255, 255, 0.5)",
+    border: "none",
     padding: "10px",
-    margin: "0 15px 15px 0", // 15px right and bottom margin
-    borderRadius: "5px", // Rounded corners
+    margin: "0 15px 15px 0",
+    borderRadius: "5px",
     marginLeft: "30px",
   };
 
   const buttonStyle = {
-    backgroundColor: "rgb(75, 192, 192)", // Same as chart borderColor
+    backgroundColor: "rgb(75, 192, 192)",
     border: "none",
     color: "white",
     padding: "10px 20px",
     cursor: "pointer",
-    borderRadius: "5px", // Rounded corners
+    borderRadius: "5px",
   };
 
   const handleSubmit = async (event) => {
@@ -35,38 +35,41 @@ const ChartComponent = () => {
     }
 
     console.log("Fetching data...");
-    const apiUrl = `http://127.0.0.1:8000/data/{id}?merchant=${merchantId}`;
-    const response = await fetch(apiUrl.replace("{id}", merchantId)); // Ensure the ID is included in the URL
+    const apiUrl = `http://127.0.0.1:8000/data/${merchantId}?merchant=${merchantId}`;
+    const response = await fetch(apiUrl);
     const rawData = await response.json();
 
-    console.log("API Response:", rawData); // Check what the API response actually looks like
-
-    // Filter transactions based on startDate and endDate
     const filteredData = rawData.filter((txn) => {
       const txnDate = new Date(txn.unix_time * 1000);
-      return txnDate >= new Date(startDate) && txnDate <= new Date(endDate);
+      const startCondition = startDate ? txnDate >= new Date(startDate) : true;
+      const endCondition = endDate ? txnDate <= new Date(endDate) : true;
+      return startCondition && endCondition;
     });
 
     const amt = filteredData.map((txn) => txn.amt);
+    const totalAmount = amt.reduce((acc, curr) => acc + curr, 0); // Sum up all amounts
+
     const unix_time = filteredData.map((txn) => {
       const date = new Date(txn.unix_time * 1000);
       return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
     });
-    const is_fraud = filteredData.map((txn) => txn.is_fraud);
 
+    const is_fraud = filteredData.map((txn) => txn.is_fraud);
     const backgroundColors = is_fraud.map((fraudFlag) =>
       fraudFlag ? "red" : "rgba(75, 192, 192, 0.5)"
     );
+    const pointRadii = is_fraud.map((fraudFlag) => (fraudFlag ? 7 : 3));
 
     const chartData = {
       labels: unix_time,
       datasets: [
         {
-          label: "Amounts",
+          label: `Amount`,
           data: amt,
           borderColor: "rgb(75, 192, 192)",
           backgroundColor: backgroundColors,
           pointBackgroundColor: backgroundColors,
+          pointRadius: pointRadii,
         },
       ],
     };
@@ -82,6 +85,14 @@ const ChartComponent = () => {
           responsive: true,
           plugins: {
             legend: { position: "top" },
+            title: {
+              display: true,
+              text: `Total Amount: $${totalAmount.toFixed(2)}`,
+              font: {
+                size: 30,
+                color: "white", // Set title font size larger. Adjust this value to make it even bigger.
+              },
+            },
           },
           scales: {
             y: {
