@@ -39,44 +39,56 @@ function Configure() {
     e.preventDefault();
     try {
       const response = await fetch('https://jzrv5cep7iuqguybomf6n2rhj40iyjnm.lambda-url.eu-north-1.on.aws/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ payment_provider: paymentProvider, payment_details: paymentDetails }),
-        mode: 'no-cors'
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', "Accept": "*/*", "Connection": "keep-alive"},
+          body: JSON.stringify({ payment_provider: paymentProvider, payment_details: paymentDetails }),
       });
-      setPaymentDetails({
-        cc_num: '',
-        merchant: '',
-        category: '',
-        amt: '',
-        first: '',
-        last: '',
-        street: '',
-        city: '',
-        state: '',
-        zip: '',
-        unix_time: ''
-      });
-      setPaymentProvider(''); 
-      toast({
-        title: "Success",
-        description: "Payment details submitted successfully.",
-        status: "success",
-        duration: 9000,
-        isClosable: true,
-        position: "top"
-      });
-    } catch (error) {
+      console.log(response)
+      // Check if response was ok and handle the data
+      if (response.ok) {
+          const data = await response.json(); // Assuming the server responds with JSON
+          const description = data.is_fraud
+              ? 'Payment details was not submitted successfully. Transaction is considered fraudulent!'
+              : 'Payment details was submitted successfully. Transaction is not fraudulent!';
+
+          toast({
+              title: "Success",
+              description: description,
+              status: "success",
+              duration: 9000,
+              isClosable: true,
+              position: "top"
+          });
+
+          // Reset the form only after successful submission
+          setPaymentDetails({
+              cc_num: '',
+              merchant: '',
+              category: '',
+              amt: '',
+              first: '',
+              last: '',
+              street: '',
+              city: '',
+              state: '',
+              zip: '',
+              unix_time: ''
+          });
+          setPaymentProvider('');
+      } else {
+          throw new Error('Server responded with a status: ' + response.status);
+      }
+  } catch (error) {
       console.error(error);
       toast({
-        title: "Error",
-        description: "Failed to submit payment details: " + error.toString(),
-        status: "error",
-        duration: 9000,
-        isClosable: true,
-        position: "top"
+          title: "Error",
+          description: "Failed to submit payment details: " + error.toString(),
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+          position: "top"
       });
-    }
+  }
   };
 
   return (
