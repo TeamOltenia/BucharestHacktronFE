@@ -38,7 +38,7 @@ function Configure() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://jzrv5cep7iuqguybomf6n2rhj40iyjnm.lambda-url.eu-north-1.on.aws/', {
+      const response = await fetch('https://317uqc2jn8.execute-api.eu-north-1.amazonaws.com/default/mw-mercury', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', "Accept": "*/*", "Connection": "keep-alive"},
           body: JSON.stringify({ payment_provider: paymentProvider, payment_details: paymentDetails }),
